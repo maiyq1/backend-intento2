@@ -24,15 +24,7 @@ public class DatabaseDBContext : DbContext
         {
             //Version of MySql and required data to connect to the database
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-            optionsBuilder.UseMySql("Server=127.0.0.1,3306;Uid=root;Pwd=Admin180403@.;Database=LearningCenterDB;",serverVersion);
+            optionsBuilder.UseMySql("Server=127.0.0.1,3306;Uid=root;Pwd=Admin180403@.;Database=databasedb;",serverVersion);
         }
-    }
-
-
-    //To create the tables according our classes
-    protected override void OnModelCreating(ModelBuilder builder)
-    {
-        base.OnModelCreating(builder);
-
     }
 }

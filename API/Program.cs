@@ -1,6 +1,8 @@
 using Data;
+using Data.DbContext;
 using Domain;
 using Microsoft.Build.Execution;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,29 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserDomain, UserDomain>();
 builder.Services.AddScoped<IUserData, UserData>();
 
+//MySQL Connection
+var connectionString = builder.Configuration.GetConnectionString("databasedb");
+var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+
+builder.Services.AddDbContext<DatabaseDBContext>(
+    dbContextOptions =>
+    {
+        dbContextOptions.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString),
+            options => options.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: System.TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null)
+        );
+    });
+
+
 var app = builder.Build();
+
+using(var scope = app.Services.CreateScope())
+using (var context = scope.ServiceProvider.GetService<DatabaseDBContext>())
+{
+    context.Database.EnsureCreated();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

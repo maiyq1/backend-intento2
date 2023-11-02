@@ -13,10 +13,5 @@
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
     </ItemGroup>
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> b480509552317d19c5a2efd40466b3a5666bfd7e
+    
 </Project>
