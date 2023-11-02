@@ -27,4 +27,21 @@ public class DatabaseDBContext : DbContext
             optionsBuilder.UseMySql("Server=127.0.0.1,3306;Uid=root;Pwd=Admin180403@.;Database=databasedb;",serverVersion);
         }
     }
+    
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<User>().ToTable("users");
+
+        builder.Entity<User>().HasKey(p => p.Id);
+
+        builder.Entity<User>().Property(p => p.username).IsRequired();
+        builder.Entity<User>().Property(p => p.username).HasMaxLength(60);
+        
+        builder.Entity<User>().Property(p => p.password).IsRequired();
+        builder.Entity<User>().Property(p => p.password).HasMaxLength(60);
+        
+
+    }
 }
