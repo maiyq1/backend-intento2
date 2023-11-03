@@ -16,6 +16,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserDomain, UserDomain>();
 builder.Services.AddScoped<IUserData, UserData>();
+builder.Services.AddScoped<ISupplierData, SupplierData>();
+builder.Services.AddScoped<ISupplierDomain, SupplierDomain>();
 
 //MySQL Connection
 var connectionString = builder.Configuration.GetConnectionString("databasedb");
