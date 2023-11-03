@@ -30,4 +30,9 @@ public class UserDomain : IUserDomain
             return _userData.update(user, id);
         }
     }
+
+    public bool delete(int id)
+    {
+        return _userData.delete(id);
+    }
 }

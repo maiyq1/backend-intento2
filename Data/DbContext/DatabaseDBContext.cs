@@ -24,7 +24,7 @@ public class DatabaseDBContext : DbContext
         {
             //Version of MySql and required data to connect to the database
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
-            optionsBuilder.UseMySql("Server=127.0.0.1,3306;Uid=root;Pwd=Admin180403@.;Database=databasedb;",serverVersion);
+            optionsBuilder.UseMySql("Server=127.0.0.1,3306;Uid=root;Pwd=admin123;Database=databasedb;",serverVersion);
         }
     }
     
@@ -41,7 +41,8 @@ public class DatabaseDBContext : DbContext
         
         builder.Entity<User>().Property(p => p.password).IsRequired();
         builder.Entity<User>().Property(p => p.password).HasMaxLength(60);
-        
+        builder.Entity<User>().Property(p => p.isActive).HasDefaultValue(true);
+
 
     }
 }

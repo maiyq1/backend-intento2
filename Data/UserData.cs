@@ -49,6 +49,24 @@ public class UserData : IUserData
         }
     }
 
+    public bool delete(int id)
+    {
+        try
+        {
+            var _user = _database.Users.Find(id);
+            _user.isActive = false;
+
+            _database.Users.Update(_user);
+            _database.SaveChanges();
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
+        
+    }
+
     public User GetById(int id)
     {
         return _database.Users.Where(t => t.Id == id).FirstOrDefault();
