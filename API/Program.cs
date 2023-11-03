@@ -1,3 +1,4 @@
+using API.Mapper;
 using Data;
 using Data.DbContext;
 using Domain;
@@ -31,6 +32,10 @@ builder.Services.AddDbContext<DatabaseDBContext>(
         );
     });
 
+builder.Services.AddAutoMapper(
+    typeof(ModelToRequest),
+    typeof(RequestToAPI)
+);
 
 var app = builder.Build();
 

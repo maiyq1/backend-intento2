@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Request;
+using AutoMapper;
 using Data;
 using Data.Model;
 using Domain;
@@ -16,11 +18,13 @@ namespace API.Controllers
     {
         private IUserDomain _userDomain;
         private IUserData _userData;
+        private IMapper _mapper;
 
-        public UserController(IUserDomain userDomain, IUserData userData)
+        public UserController(IUserDomain userDomain, IUserData userData, IMapper mapper)
         {
             _userDomain = userDomain;
             _userData = userData;
+            _mapper = mapper;
         }
         // GET: api/User
         [HttpGet]
@@ -38,14 +42,32 @@ namespace API.Controllers
 
         // POST: api/User
         [HttpPost]
-        public void Post([FromBody] string value)
+        public string Post([FromBody] UserRequest userRequest)
         {
+            var user = _mapper.Map<UserRequest, User>(userRequest);
+            if (!(_userDomain.create(user)))
+            {
+                return "tamal";
+            }
+            else
+            {
+                return "tabien";
+            }
         }
 
         // PUT: api/User/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public string Put([FromBody] UserRequest userRequest, int id)
         {
+            var user = _mapper.Map<UserRequest, User>(userRequest);
+            if (_userDomain.update(user, id))
+            {
+                return "potfriend";
+            }
+            else
+            {
+                return "verga wey";
+            }
         }
 
         // DELETE: api/User/5
