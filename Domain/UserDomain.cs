@@ -13,7 +13,7 @@ public class UserDomain : IUserDomain
     }
     public bool create(User user)
     {
-        if (user.username == "uwu")
+        if (user.username.Length < 8 || user.username.Length > 20 || user.password.Length < 8 )
             return false;
         return _userData.create(user);
     }

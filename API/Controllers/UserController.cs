@@ -47,11 +47,11 @@ namespace API.Controllers
             var user = _mapper.Map<UserRequest, User>(userRequest);
             if (!(_userDomain.create(user)))
             {
-                return "tamal";
+                return "Corrige los datos de usuario";
             }
             else
             {
-                return "tabien";
+                return "El usuario se ha creado correctamente.";
             }
         }
 
@@ -62,11 +62,11 @@ namespace API.Controllers
             var user = _mapper.Map<UserRequest, User>(userRequest);
             if (_userDomain.update(user, id))
             {
-                return "potfriend";
+                return "Los datos se actualizaron correctamente.";
             }
             else
             {
-                return "verga wey";
+                return "No se pudo actualizar los datos del usuario.";
             }
         }
 
